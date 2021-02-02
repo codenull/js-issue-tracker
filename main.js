@@ -2,10 +2,18 @@
 
 $(function(){
 
+    const elIssueForm = document.getElementById("issueInputForm");
+    elIssueForm.addEventListener('submit', createIssue);
+
     fetchIssues();
 
 });
 
+
+function createIssue(event) {
+    event.preventDefault();
+    console.log("Create issue!")
+}
 
 function fetchIssues() {
     let issues = JSON.parse(localStorage.getItem('issues'));
