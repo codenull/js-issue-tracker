@@ -12,7 +12,31 @@ $(function(){
 
 function createIssue(event) {
     event.preventDefault();
+
+    const issue = {
+        id: chance.guid(),
+        description: document.getElementById('issueDescInput').value,
+        severity: document.getElementById('issueSeverityInput').value,
+        assignedTo: document.getElementById('issueAssignedToInput').value,
+        status: "Open"
+    };
+    addIssueToStorage(issue);
     console.log("Create issue!")
+}
+
+function getIssuesFromStorage(){
+    // Init issue storage.
+    if(localStorage.getItem('issues') == null){
+        localStorage.setItem('issues', JSON.stringify([]));
+    }
+
+    return JSON.parse(localStorage.getItem('issues'));
+}
+
+function addIssueToStorage(issue){
+    const issues = getIssuesFromStorage();
+    issues.push(issue);
+    localStorage.setItem('issues', JSON.stringify(issues));
 }
 
 function fetchIssues() {
